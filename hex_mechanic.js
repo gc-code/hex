@@ -50,6 +50,7 @@ function handle_mouse_down(event) {
     if (!event) {
         event = window.event;
     }
+    var canvas_bounding_rect = board_canvas.getBoundingClientRect();
     var mouse_x = event.clientX - canvas_bounding_rect.left;
     var mouse_y = event.clientY - canvas_bounding_rect.top;
     
@@ -72,6 +73,7 @@ function handle_mouse_up(event) {
 }
 
 function handle_mouse_move(event) {
+    var canvas_bounding_rect = board_canvas.getBoundingClientRect();
     var mouse_x = event.clientX - canvas_bounding_rect.left;
     var mouse_y = event.clientY - canvas_bounding_rect.top;
     
@@ -101,6 +103,7 @@ function move_selected_counter(mouse_x, mouse_y) {
         blue_counter.centre_x = mouse_x;
         blue_counter.centre_y = mouse_y;
     }
+    
     redraw_all();
 }
 
@@ -188,7 +191,6 @@ function prepare_board() {
     board_canvas = document.getElementById("board_canvas");
     context = board_canvas.getContext("2d");
     context.lineWidth = 1;
-    canvas_bounding_rect = board_canvas.getBoundingClientRect();
     board_canvas.addEventListener("mousedown", handle_mouse_down, false);	// Add event listeners
     board_canvas.addEventListener("mouseup", handle_mouse_up, false);
     board_canvas.addEventListener("mousemove", handle_mouse_move, false);
@@ -241,27 +243,27 @@ function draw_board() {
     for (var i = 0; i < num_hexes; i++) {
         board_lines[i] = new Array(12);
         
-        board_lines[i][0] = cur_x_left;						// Top left
+        board_lines[i][0] = cur_x_left;                             // Top left
         board_lines[i][1] = cur_y_top + vert_space_div_4;
         context.moveTo(board_lines[i][0], board_lines[i][1]);
         
-        board_lines[i][2] = cur_x_left + (horiz_space_per_hex / 2);	// Top centre
+        board_lines[i][2] = cur_x_left + (horiz_space_per_hex / 2); // Top centre
         board_lines[i][3] = cur_y_top;
         context.lineTo(board_lines[i][2], board_lines[i][3]);
         
-        board_lines[i][4] = cur_x_left + horiz_space_per_hex;	// Top right
+        board_lines[i][4] = cur_x_left + horiz_space_per_hex;       // Top right
         board_lines[i][5] = cur_y_top + vert_space_div_4;
         context.lineTo(board_lines[i][4], board_lines[i][5]);
         
-        board_lines[i][6] = cur_x_left + horiz_space_per_hex;	// Bottom right
+        board_lines[i][6] = cur_x_left + horiz_space_per_hex;       // Bottom right
         board_lines[i][7] = cur_y_top + 3 * vert_space_div_4;
         context.lineTo(board_lines[i][6], board_lines[i][7]);
         
-        board_lines[i][8] = cur_x_left + (horiz_space_per_hex / 2);	// Bottom centre
+        board_lines[i][8] = cur_x_left + (horiz_space_per_hex / 2); // Bottom centre
         board_lines[i][9] = cur_y_top + vert_space_per_hex;
         context.lineTo(board_lines[i][8], board_lines[i][9]);
         
-        board_lines[i][10] = cur_x_left;						// Bottom left
+        board_lines[i][10] = cur_x_left;                            // Bottom left
         board_lines[i][11] = cur_y_top + 3 * vert_space_div_4;
         context.lineTo(board_lines[i][10], board_lines[i][11]);
         context.lineTo(board_lines[i][0], board_lines[i][1]);
